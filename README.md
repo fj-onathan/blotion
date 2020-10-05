@@ -26,6 +26,7 @@ package main
 
 import (
 	blotion "github.com/fj-onathan/blotion"
+    "fmt"
 )
 
 func main() {
