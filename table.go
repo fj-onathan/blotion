@@ -64,23 +64,23 @@ func ExportTable(PageID string) []Table {
 		Page := CollectionData["recordMap"].Block[block]
 		Fields := make(map[string]interface{})
 
-		for id, _ := range Schema {
+		for id := range Schema {
 			SchemaDefenition := Schema[id]
-			SHtype := SchemaDefenition.Type
-			SHvalue := Page.Values.Properties
+			Type := SchemaDefenition.Type
+			Properties := Page.Values.Properties
 
 			// ! add to fields
-			if len(SHvalue[id]) > 0 {
+			if len(Properties[id]) > 0 {
 				var value interface{}
-				value = SHvalue[id][0][0].(string)
+				value = Properties[id][0][0].(string)
 
-				if SHtype == "multi_select" {
+				if Type == vars.ColumnTypeMultiSelect {
 					c := strings.Split(value.(string), ",")
 					value = c
-				} else if SHtype == "file" {
+				} else if Type == vars.ColumnTypeFile {
 					fileID := Page.Values.Files[len(Page.Values.Files)-1]
-					fileURL := url.QueryEscape("https://s3-us-west-2.amazonaws.com/secure.notion-static.com/"+fileID+"/"+value.(string)) + "?table=block&id=" + Page.Values.ID
-					value = "https://www.notion.so/image/" + fileURL
+					fileURL := url.QueryEscape(vars.NotionAWS+fileID+"/"+value.(string)) + "?table=block&id=" + Page.Values.ID
+					value = vars.NotionStorageImage + fileURL
 				}
 
 				Fields[SchemaDefenition.Name] = value

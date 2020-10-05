@@ -19,6 +19,12 @@ const (
 	PermissionTypePublic = "public_permission"
 )
 
+// + for File.Types
+const (
+	NotionStorageImage = "https://www.notion.so/image/"
+	NotionAWS          = "https://s3-us-west-2.amazonaws.com/secure.notion-static.com/"
+)
+
 // + for Schema.Type
 const (
 	ColumnTypeCheckbox       = "checkbox"
